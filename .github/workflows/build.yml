@@ -13,7 +13,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v6
       - name: Reduce wget verbosity
-        run: sed -i 's/wget/wget -nv/' provision-drivers.sh
+        run: sed -i 's/wget/wget --progress=dot:giga/' provision-drivers.sh
       - name: Create cache dir and temp dir for packer
         run: mkdir -p ${{ github.workspace }}/{.cache,.temp}
       - name: Enable KVM group perms
