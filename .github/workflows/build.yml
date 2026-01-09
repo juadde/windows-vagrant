@@ -10,9 +10,7 @@ jobs:
               echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
               sudo apt -yq update
       - name: Install dependencies
-        run: DEBIAN_FRONTEND=noninteractive sudo apt -yq install qemu-system-x86 xorriso p7zip dos2unix vagrant libvirt-dev
-      - name: Install vagrant dependencies
-        run: vagrant plugin install vagrant-libvirt
+        run: DEBIAN_FRONTEND=noninteractive sudo apt -yq install qemu-system-x86 xorriso p7zip dos2unix vagrant
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
       - name: Check out repository code
