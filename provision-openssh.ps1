@@ -46,12 +46,12 @@ function Install-ZippedApplication($destinationPath, $name, $url, $expectedHash,
 function Install-Rsync {
     # see https://github.com/rgl/rsync-vagrant/releases
     # renovate: datasource=github-releases depName=rgl/rsync-vagrant
-    $version = '3.4.1-20251027'
+    $version = '3.4.1-20260111'
     Install-ZippedApplication `
         $rsyncHome `
         rsync `
         "https://github.com/rgl/rsync-vagrant/releases/download/v$version/rsync-vagrant-$version.zip" `
-        a87400277cbb76dc1b36c0cf807ee00a77a46224a4462cd1c8734c4113532d40
+        bb09eab2e5ea061b9a8d31e16017f910687c2b71af552a5c0a3cb607691e8287
     [Environment]::SetEnvironmentVariable(
         'PATH',
         "$([Environment]::GetEnvironmentVariable('PATH', 'Machine'));$rsyncHome",
@@ -61,12 +61,12 @@ function Install-Rsync {
 function Install-OpenSshBinaries {
     # see https://github.com/PowerShell/Win32-OpenSSH/releases
     # renovate: datasource=github-releases depName=PowerShell/Win32-OpenSSH
-    $version = '9.8.3.0p2-Preview'
+    $version = '10.0.0.0p2-Preview'
     Install-ZippedApplication `
         $openSshHome `
         OpenSSH `
-        "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v$version/OpenSSH-Win64.zip" `
-        0ca131f3a78f404dc819a6336606caec0db1663a692ccc3af1e90232706ada54
+        "https://github.com/PowerShell/Win32-OpenSSH/releases/download/$version/OpenSSH-Win64.zip" `
+        23f50f3458c4c5d0b12217c6a5ddfde0137210a30fa870e98b29827f7b43aba5
     Push-Location $openSshHome
     Move-Item OpenSSH-Win64\* .
     Remove-Item OpenSSH-Win64
@@ -96,7 +96,7 @@ if (Test-Path $openSshConfigHome) {
 # NB sshd, at startup, if it does not already exists (as its the case of this
 #    initial installation), will copy this file to
 #    $openSshConfigHome\sshd_config.
-# see https://github.com/PowerShell/openssh-portable/blob/v9.8.3.0/contrib/win32/win32compat/wmain_sshd.c#L152-L156
+# see https://github.com/PowerShell/openssh-portable/blob/v10.0.0.0/contrib/win32/win32compat/wmain_sshd.c#L152-L156
 $sshdConfig = Get-Content -Raw "$openSshHome\sshd_config_default"
 # Configure the Administrators group to also use the ~/.ssh/authorized_keys file.
 # see https://github.com/PowerShell/Win32-OpenSSH/issues/1324
